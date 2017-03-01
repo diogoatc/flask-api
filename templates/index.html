@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Teste Templates</title>
+</head>
+<body>
+<h1>HOME!!</h1>
+
+<div>
+<h2>Anuncios Gold:</h2>
+{% for gold in golds %}
+<div>
+	
+<P>{{gold[2]}} - {{gold[3]}} </P>
+
+</div>
+{% endfor %}
+<h2>Anuncios Silver:</h2>
+{% for silver in silvers %}
+<div>
+<p>{{silver[2]}} - {{silver[3]}}</p>
+</div>
+{% endfor %}
+</div>
+
+
+<a style="font-size: 15px;" href="/api/list?categoria=padaria"> Categoria Padaria </a>
+</body>
+</html>
