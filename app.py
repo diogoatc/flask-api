@@ -1,7 +1,9 @@
 from flask import Flask, render_template,redirect, json, request,jsonify
 from flaskext.mysql import MySQL
+from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
+CORS(app, origins='*')
 mysql = MySQL(app)
 # MySQL configurations
 app.config['MYSQL_DATABASE_USER'] = 'root'
@@ -31,8 +33,15 @@ def list():
 	cursor=con.cursor()
 	cursor.callproc('ListaAnuncios',(cat,))
 	categorias = cursor.fetchall()
-
-	return render_template('lista.html', items = categorias)
+	anuncios=[]
+	for anuncio in categorias:
+		i={
+			'id':anuncio[0],
+			'texto':anuncio[2],
+			'categoria':anuncio[3]
+		}
+		anuncios.append(i)
+	return jsonify(anuncios)
 
 if __name__ == '__main__':
-	app.run(debug=True)
+	app.run(debug='true')
